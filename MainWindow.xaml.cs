@@ -30,6 +30,7 @@ namespace GEO
         public MainWindow()
         {
             InitializeComponent();
+            
         }
 
         private void MapLoaded(object sender, RoutedEventArgs e)
@@ -52,6 +53,10 @@ namespace GEO
             Map.CanDragMap = true;
             Map.DragButton = MouseButton.Left;
 
+
+            //коллекция объектов для сохранения
+            List <object> object_list = new List<object>();
+
             PointLatLng point = new PointLatLng(55.016511, 82.946152);
 
             GMapMarker marker = new GMapMarker(point)
@@ -64,7 +69,11 @@ namespace GEO
                     Source = new BitmapImage(new Uri("C:\\Users\\Platforma4\\Desktop\\geoapp\\Resourses\\car.png"))
                 }
             };
+            
             Map.Markers.Add(marker);
+            
+            
+
             // координаты точек замкнутой области (полигона)
             
             //List<PointLatLng> points = new PointLatLng[] {
@@ -90,22 +99,7 @@ namespace GEO
             PointLatLng point = Map.FromLocalToLatLng((int)e.GetPosition(Map).X, (int)e.GetPosition(Map).Y);
         }
 
-        private void RadioButton_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void RadioButton_Checked_1(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void RadioButton_Checked_2(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }

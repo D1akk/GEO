@@ -24,7 +24,7 @@
         </GroupBox>
         <GroupBox Header="Добавить" Margin="10,97,0,0" HorizontalAlignment="Left" Width="223" Height="194" VerticalAlignment="Top" Grid.ColumnSpan="2">
             <StackPanel>
-                <ComboBox HorizontalAlignment="Center" Width="190" Height="22" VerticalAlignment="Top" Margin="0,10,0,0"/>
+                <ComboBox HorizontalAlignment="Center" Width="190" Height="22" VerticalAlignment="Top" Margin="0,10,0,0" SelectionChanged="ComboBox_SelectionChanged"/>
                 <TextBlock TextWrapping="Wrap" Height="22" Width="190" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0"/>
                 <Button Content="ОК" Width="190" Height="40" Margin="0,10,0,0"/>
                 <Button Content="Сброс точек" Width="190" Height="40" Margin="0,10,0,0"/>
