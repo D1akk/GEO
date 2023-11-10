@@ -18,7 +18,8 @@ using GMap.NET.WindowsPresentation;
 using System.Device.Location;
 using GEO.Classes;
 using GEO.Properties;
-
+using System.Security;
+using System.ComponentModel;
 
 namespace GEO
 {
@@ -27,10 +28,27 @@ namespace GEO
     /// </summary>
     public partial class MainWindow : Window
     {
+        private bool add_radio_checked = false;
+        private bool search_radio_checked = false;
+        private bool title;
+        private PointLatLng point = new PointLatLng();
+        private List<object> object_list = new List<object>();
+        private List<Type> object_type = new List<Type>
+        {
+            typeof(Car),
+            typeof(Human),
+            typeof(Classes.Location),
+            typeof(Area),
+        };
+       
+
+        
         public MainWindow()
         {
             InitializeComponent();
             
+            Type_ComboBox.ItemsSource = object_type;
+            Type_ComboBox.DisplayMemberPath = "Name";
         }
 
         private void MapLoaded(object sender, RoutedEventArgs e)
@@ -52,56 +70,62 @@ namespace GEO
             Map.MouseWheelZoomType = MouseWheelZoomType.MousePositionAndCenter;
             Map.CanDragMap = true;
             Map.DragButton = MouseButton.Left;
+        
+        }
 
-
-            //коллекция объектов для сохранения
-            List <object> object_list = new List<object>();
-
-            PointLatLng point = new PointLatLng(55.016511, 82.946152);
+        public void Map_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {  
+            PointLatLng point = Map.FromLocalToLatLng((int)e.GetPosition(Map).X, (int)e.GetPosition(Map).Y);
+            this.point = point;
 
             GMapMarker marker = new GMapMarker(point)
             {
-                Shape = new Image
+                Shape = new Ellipse
                 {
-                    Width = 32, // ширина маркера
-                    Height = 32, // высота маркера
-                    ToolTip = "Honda CR-V", // всплывающая подсказка
-                    Source = new BitmapImage(new Uri("C:\\Users\\Platforma4\\Desktop\\geoapp\\Resourses\\car.png"))
+                    Width = 2,
+                    Height = 2,
+                    Stroke = Brushes.Red,
+                    Fill = Brushes.Red,
+                    StrokeThickness = 1
                 }
             };
-            
-            Map.Markers.Add(marker);
-            
-            
-
-            // координаты точек замкнутой области (полигона)
-            
-            //List<PointLatLng> points = new PointLatLng[] {
-            //     new PointLatLng(55.016351, 82.950650),
-            //     new PointLatLng(55.017021, 82.951484),
-            //     new PointLatLng(55.015795, 82.954526),
-            //     new PointLatLng(55.015129, 82.953586) }.ToList();
-
-            //GMapMarker marker = new GMapPolygon(points)
-            //{
-            //    Shape = new Path
-            //    {
-            //        Stroke = Brushes.Black, // стиль обводки
-            //        Fill = Brushes.Aquamarine, // стиль заливки
-            //        Opacity = 0.7 // прозрачность
-            //    }
-            //};
-
             Map.Markers.Add(marker);
         }
-        private void Map_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+       
+
+        private void Radio_Checked(object sender, RoutedEventArgs e)
         {
-            PointLatLng point = Map.FromLocalToLatLng((int)e.GetPosition(Map).X, (int)e.GetPosition(Map).Y);
+            RadioButton selected_radio = sender as RadioButton;    
+
+            if (selected_radio == Add_Radio)
+            {
+                add_radio_checked = true;
+                search_radio_checked = false;
+            }
+            else if (selected_radio == Search_Radio)
+            {
+                add_radio_checked = false;
+                search_radio_checked = true;
+            }        
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Create_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            if (add_radio_checked)
+            {
+                Car car = new Car(Add_Input.Text, point);
+                object_list.Add(car);
+                GMapMarker car_marker = car.getMarker();
+                Map.Markers.Add(car_marker);
+            }
         }
+
+        private void Clear_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Map.Markers.Clear();
+        }
+
+
+      
     }
 }

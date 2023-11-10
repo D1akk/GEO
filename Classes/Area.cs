@@ -2,12 +2,14 @@
 using GMap.NET.WindowsPresentation;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace GEO.Classes
 {
+    [DisplayName("Область")]
     internal class Area: MapObject
     {
         public List<PointLatLng> points;
