@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 
 namespace GEO.Classes
 {
-    internal class MapObject
+
+    public abstract class MapObject
     {
+
         public string title;
         public DateTime creationDate;
 

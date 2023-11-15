@@ -6,47 +6,36 @@
         xmlns:local="clr-namespace:GEO"
         xmlns:WindowsPresentation="clr-namespace:GMap.NET.WindowsPresentation;assembly=GMap.NET.WindowsPresentation" x:Class="GEO.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="745" Width="1052">
+        Title="MainWindow" Height="806" Width="1052">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="131*"/>
             <ColumnDefinition Width="921*"/>
         </Grid.ColumnDefinitions>
-        <WindowsPresentation:GMapControl Name="Map" Loaded="MapLoaded" MouseLeftButtonDown="Map_MouseLeftButtonDown" Margin="122,10,10,10" Grid.Column="1">
-        </WindowsPresentation:GMapControl>
-
+        <WindowsPresentation:GMapControl Name="Map" Loaded="MapLoaded" MouseLeftButtonDown="Map_MouseLeftButtonDown" Margin="122,10,10,10" Grid.Column="1"/>
         <GroupBox Header="Режим курсора" Margin="10,10,0,0" Height="82" VerticalAlignment="Top" HorizontalAlignment="Left" Width="223" Grid.ColumnSpan="2">
             <StackPanel Margin="0,0,29,0">
                 <RadioButton Content="Создание объектов" HorizontalAlignment="Left" Height="22" Margin="0,10,0,0" x:Name="Add_Radio" Checked="Radio_Checked" />
                 <RadioButton Content="Поиск ближайших объектов" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="Search_Radio" Checked="Radio_Checked"/>
-
-
             </StackPanel>
         </GroupBox>
         <GroupBox Header="Добавить" Margin="10,109,0,0" HorizontalAlignment="Left" Width="223" Height="224" VerticalAlignment="Top" Grid.ColumnSpan="2">
             <StackPanel>
-                <ComboBox HorizontalAlignment="Center" Width="190" Height="22" VerticalAlignment="Top" Margin="0,10,0,0" x:Name="Type_ComboBox" DisplayMemberPath="DisplayName" SelectionChanged="Type_ComboBox_SelectionChanged"/>
+                <ComboBox HorizontalAlignment="Center" Width="190" Height="22" VerticalAlignment="Top" Margin="0,10,0,0" x:Name="Type_ComboBox"/>
                 <TextBox TextWrapping="Wrap" Height="24" Width="190" HorizontalAlignment="Center" Margin="0,10,0,0" x:Name="Add_Input"/>
                 <Button Content="ОК" Width="190" Height="40" Margin="0,10,0,0" x:Name="Create_Button" Click="Create_Button_Click"/>
                 <Button Content="Сброс точек" Width="190" Height="40" Margin="0,10,0,0" x:Name="Clear_Button" Click="Clear_Button_Click"/>
-
             </StackPanel>
         </GroupBox>
-        <GroupBox Header="Найти" Margin="10,353,0,0" HorizontalAlignment="Left" Width="223" Height="366" VerticalAlignment="Top" Grid.ColumnSpan="2">
-            <StackPanel>
-                <TextBox TextWrapping="Wrap" Height="24" Width="190" HorizontalAlignment="Center" Margin="0,10,0,0" x:Name="Search_Input"/>
-                <Button Content="ОК" Width="190" Height="40" Margin="0,10,0,0"/>
-                <TextBlock TextWrapping="Wrap" Width="190" Height="176" Margin="0,20,0,0" x:Name="View_Output"/>
-
+        <GroupBox Header="Найти" Margin="10,353,0,0" HorizontalAlignment="Left" Width="223" Height="427" VerticalAlignment="Top" Grid.ColumnSpan="2">
+            <StackPanel Width="190">
+                <TextBox TextWrapping="Wrap" Height="24" Width="190" HorizontalAlignment="Center" Margin="0,10,0,0" x:Name="Search_Input" TextChanged="Search_Input_TextChanged"/>
+                <Button Content="ОК" Width="190" Height="40" Margin="0,10,0,0" Click="Button_Click" x:Name="Search_Button"/>
+                <ListBox Height="100" Width="190" Margin="0,10,0,0" x:Name="Search_Result" SelectionChanged="Search_Result_SelectionChanged"/>
+                <Label Content="Ближайшие объекты:"/>
+                <ListBox Height="100" x:Name="Close_Objects" Margin="0,0,0,0" Width="190"/>
+                <Button Content="Очистить" Height="40" Margin="0,10,0,0" x:Name="Search_Clear" Click="Search_Clear_Click" />
             </StackPanel>
         </GroupBox>
-
-
-
-
-
-    </Grid>
-
-
-
+  </Grid>
 </Window>
